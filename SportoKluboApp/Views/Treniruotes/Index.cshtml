@@ -1,0 +1,42 @@
+﻿@model SportoKluboApp.Models.ViewModels.TreniruotesViewModel
+@using Humanizer
+
+
+@{
+    ViewData["Title"] = "Treniruotes";
+}
+
+<div class="panel panel-default todo-panel">
+    <div class="panel-heading">@ViewData["Title"]</div>
+
+    <table class="table table-hover" id="aa">
+        <thead>
+            <tr>
+                <td> </td>
+                <td>Laikas</td>
+                <td>Pavadinimas</td>
+                <td>Laisvu vietu skaicius</td>
+                <td>Dalyviu skaicius</td>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.Treniruotes)
+        {
+            <tr id="bb">
+                <td>
+                    <input type="hidden" name="id" value="@item.Id">
+                </td>
+                <td>@item.Laikas</td>
+                <td>@item.Pavadinimas</td>
+                <td>@item.LaisvosVietos</td>
+                <td>@item.Registracijos</td>
+            </tr>
+        }
+    </table>
+
+
+    <div class="panel-footer add-item-form">
+        @await Html.PartialAsync("AddTreniruotePartial", new Treniruote())
+    </div>
+
+</div>
