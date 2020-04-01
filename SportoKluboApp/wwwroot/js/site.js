@@ -1,4 +1,13 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
 
-// Write your JavaScript code.
+    $('.join-button').on('click', function (e) {
+        markJoined(e.target);
+    });
+});
+
+function markJoined(button) {
+    button.disabled = true;
+
+    var form = button.closest('form');
+    form.submit();
+}

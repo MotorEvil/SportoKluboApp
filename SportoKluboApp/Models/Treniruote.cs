@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SportoKluboApp.Models
 {
@@ -20,6 +17,7 @@ namespace SportoKluboApp.Models
 
         [Required]
         public int LaisvosVietos { get; set; }
+
         public int Registracijos { get; set; }
 
         public string UserId { get; set; }

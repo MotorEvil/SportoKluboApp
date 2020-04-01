@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using SportoKluboApp.Data;
 using SportoKluboApp.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,8 +32,24 @@ namespace SportoKluboApp.Services
 
             var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;
-
         }
 
+        public async Task<bool> JoinTreniruoteAsync(Guid id, IdentityUser user)
+        {
+            var item = await _context.Items
+                .Where(x => x.Id == id && x.UserId == user.Id)
+                .SingleOrDefaultAsync();
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            item.Registracijos = 1;
+
+            var saveResult = await _context.SaveChangesAsync();
+
+            return saveResult == 1;
+        }
     }
 }
