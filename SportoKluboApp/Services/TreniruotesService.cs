@@ -22,7 +22,7 @@ namespace SportoKluboApp.Services
             return await _context.Items.Where(x => x.IsDone == false).ToArrayAsync();
         }
 
-        public async Task<bool> AddTreniruoteAsync(Treniruote newTreniruote, IdentityUser user)
+        public async Task<bool> AddTreniruoteAsync(Treniruote newTreniruote)
         {
             newTreniruote.Id = Guid.NewGuid();
             newTreniruote.IsDone = false;

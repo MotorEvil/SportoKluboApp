@@ -21,12 +21,12 @@ namespace SportoKluboApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var currentUser = await _userManager.GetUserAsync(User);
+            var currentUser = await _userManager.GetUserAsync(User);
 
-           /* if (currentUser == null)
+            if (currentUser == null)
             {
                 return Challenge();
-            }*/
+            }
 
             var treniruotes = await _treniruotesService
             .GetTreniruotesAsync();
@@ -54,7 +54,7 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var succsessful = await _treniruotesService.AddTreniruoteAsync(newTreniruote, currentUser);
+            var succsessful = await _treniruotesService.AddTreniruoteAsync(newTreniruote);
 
             if (!succsessful)
             {
@@ -70,8 +70,8 @@ namespace SportoKluboApp.Controllers
             /*if (id == Guid.Empty)
             {
                 return RedirectToAction("Index");
-            }
-*/
+            }*/
+
             var currentUser = await _userManager.GetUserAsync(User);
 
             if (currentUser == null)

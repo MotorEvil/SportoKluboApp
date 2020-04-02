@@ -9,7 +9,7 @@ namespace SportoKluboApp.Services
     {
         Task<Treniruote[]> GetTreniruotesAsync();
 
-        Task<bool> AddTreniruoteAsync(Treniruote newTreniruote, IdentityUser user);
+        Task<bool> AddTreniruoteAsync(Treniruote newTreniruote);
 
         Task<bool> JoinTreniruoteAsync(Guid id, IdentityUser user);
     }
