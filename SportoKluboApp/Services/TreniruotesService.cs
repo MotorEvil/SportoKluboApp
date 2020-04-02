@@ -17,9 +17,9 @@ namespace SportoKluboApp.Services
             _context = context;
         }
 
-        public async Task<Treniruote[]> GetTreniruotesAsync(IdentityUser user)
+        public async Task<Treniruote[]> GetTreniruotesAsync()
         {
-            return await _context.Items.Where(x => x.IsDone == false && x.UserId == user.Id).ToArrayAsync();
+            return await _context.Items.Where(x => x.IsDone == false).ToArrayAsync();
         }
 
         public async Task<bool> AddTreniruoteAsync(Treniruote newTreniruote, IdentityUser user)
@@ -27,6 +27,7 @@ namespace SportoKluboApp.Services
             newTreniruote.Id = Guid.NewGuid();
             newTreniruote.IsDone = false;
             newTreniruote.UserId = user.Id;
+            newTreniruote.Registracijos = 0;
 
             _context.Items.Add(newTreniruote);
 
@@ -37,7 +38,7 @@ namespace SportoKluboApp.Services
         public async Task<bool> JoinTreniruoteAsync(Guid id, IdentityUser user)
         {
             var item = await _context.Items
-                .Where(x => x.Id == id && x.UserId == user.Id)
+                .Where(x => x.Id == id)
                 .SingleOrDefaultAsync();
 
             if (item == null)
@@ -45,7 +46,8 @@ namespace SportoKluboApp.Services
                 return false;
             }
 
-            item.Registracijos = 1;
+            item.Registracijos++;
+            item.TreniruotesDalyviai = user.UserName + ", ";
 
             var saveResult = await _context.SaveChangesAsync();
 

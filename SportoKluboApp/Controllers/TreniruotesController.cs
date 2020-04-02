@@ -21,15 +21,15 @@ namespace SportoKluboApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
+            //var currentUser = await _userManager.GetUserAsync(User);
 
-            if (currentUser == null)
+           /* if (currentUser == null)
             {
                 return Challenge();
-            }
+            }*/
 
             var treniruotes = await _treniruotesService
-            .GetTreniruotesAsync(currentUser);
+            .GetTreniruotesAsync();
 
             var model = new TreniruotesViewModel()
             {
@@ -67,11 +67,11 @@ namespace SportoKluboApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> JoinTreniruote(Guid id)
         {
-            if (id == Guid.Empty)
+            /*if (id == Guid.Empty)
             {
                 return RedirectToAction("Index");
             }
-
+*/
             var currentUser = await _userManager.GetUserAsync(User);
 
             if (currentUser == null)

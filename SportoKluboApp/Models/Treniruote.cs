@@ -21,5 +21,7 @@ namespace SportoKluboApp.Models
         public int Registracijos { get; set; }
 
         public string UserId { get; set; }
+
+        public string TreniruotesDalyviai { get; set; }
     }
 }

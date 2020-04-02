@@ -12,5 +12,8 @@ namespace SportoKluboApp.Data
         }
 
         public DbSet<Treniruote> Items { get; set; }
+
+        public DbSet<Pasiekimas> PasiekimasItem { get; set; }
+
     }
 }

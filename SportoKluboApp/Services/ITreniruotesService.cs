@@ -7,7 +7,7 @@ namespace SportoKluboApp.Services
 {
     public interface ITreniruotesService
     {
-        Task<Treniruote[]> GetTreniruotesAsync(IdentityUser user);
+        Task<Treniruote[]> GetTreniruotesAsync();
 
         Task<bool> AddTreniruoteAsync(Treniruote newTreniruote, IdentityUser user);
 
