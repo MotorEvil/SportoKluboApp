@@ -26,7 +26,6 @@ namespace SportoKluboApp.Services
         {
             newTreniruote.Id = Guid.NewGuid();
             newTreniruote.IsDone = false;
-            newTreniruote.UserId = user.Id;
             newTreniruote.Registracijos = 0;
 
             _context.Items.Add(newTreniruote);
@@ -37,6 +36,7 @@ namespace SportoKluboApp.Services
 
         public async Task<bool> JoinTreniruoteAsync(Guid id, IdentityUser user)
         {
+            //neranda item id ir del to ismeta false
             var item = await _context.Items
                 .Where(x => x.Id == id)
                 .SingleOrDefaultAsync();
