@@ -46,8 +46,9 @@ namespace SportoKluboApp.Services
                 return false;
             }
 
+            item.UserId = item.UserId + user.Id.ToString() + ", ";
             item.Registracijos++;
-            item.TreniruotesDalyviai = user.UserName + ", ";
+            item.TreniruotesDalyviai = item.TreniruotesDalyviai + user.UserName.ToString() + ", ";
 
             var saveResult = await _context.SaveChangesAsync();
 

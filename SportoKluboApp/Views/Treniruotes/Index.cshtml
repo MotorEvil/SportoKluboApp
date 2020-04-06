@@ -30,7 +30,8 @@
                 <td>@item.LaisvosVietos</td>
                 <td>
                     <form asp-controller="Treniruotes" asp-action="JoinTreniruote" method="post">
-                        <input type="submit" value="Join" class="join-button"/>
+                        <input type="submit" value="Join" class="join-button" />
+                        <input type="hidden" name="id" value="@item.Id">
                         <label>@item.Registracijos</label>
                     </form>
                 </td>
