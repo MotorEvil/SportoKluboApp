@@ -25,8 +25,8 @@ namespace SportoKluboApp.Services
         public async Task<bool> AddTreniruoteAsync(Treniruote newTreniruote)
         {
             newTreniruote.Id = Guid.NewGuid();
-            newTreniruote.IsDone = false;
             newTreniruote.Registracijos = 0;
+            newTreniruote.IsDone = false;
 
             _context.Items.Add(newTreniruote);
 
@@ -36,7 +36,6 @@ namespace SportoKluboApp.Services
 
         public async Task<bool> JoinTreniruoteAsync(Guid id, IdentityUser user)
         {
-            //neranda item id ir del to ismeta false
             var item = await _context.Items
                 .Where(x => x.Id == id)
                 .SingleOrDefaultAsync();
@@ -46,9 +45,40 @@ namespace SportoKluboApp.Services
                 return false;
             }
 
-            item.UserId = item.UserId + user.Id.ToString() + ", ";
-            item.Registracijos++;
-            item.TreniruotesDalyviai = item.TreniruotesDalyviai + user.UserName.ToString() + ", ";
+            if (item.Registracijos != item.LaisvosVietos)
+            {
+                item.TreniruotesDalyviai = item.TreniruotesDalyviai + user.UserName + ", ";
+
+                item.Registracijos++;
+            }
+
+            var saveResult = await _context.SaveChangesAsync();
+
+            return saveResult == 1;
+        }
+
+        public async Task<bool> ExitTreniruoteAsync(Guid id, IdentityUser user)
+        {
+            var item = await _context.Items
+                .Where(x => x.Id == id)
+                .SingleOrDefaultAsync();
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            item.TreniruotesDalyviai = item.TreniruotesDalyviai
+                .Substring(item.TreniruotesDalyviai
+                .IndexOf(user.UserName))
+                .Replace(user.UserName + ", ", "");
+
+            item.Registracijos--;
+
+            if (item.Registracijos <= 0)
+            {
+                item.Registracijos = 0;
+            }
 
             var saveResult = await _context.SaveChangesAsync();
 

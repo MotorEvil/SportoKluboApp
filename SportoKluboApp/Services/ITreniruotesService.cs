@@ -12,5 +12,7 @@ namespace SportoKluboApp.Services
         Task<bool> AddTreniruoteAsync(Treniruote newTreniruote);
 
         Task<bool> JoinTreniruoteAsync(Guid id, IdentityUser user);
+
+        Task<bool> ExitTreniruoteAsync(Guid id, IdentityUser user);
     }
 }

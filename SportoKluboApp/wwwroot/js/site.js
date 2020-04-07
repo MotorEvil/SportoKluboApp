@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-
     $('.join-button').on('click', function (e) {
         markJoined(e.target);
     });

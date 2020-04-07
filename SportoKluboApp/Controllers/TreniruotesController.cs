@@ -67,10 +67,10 @@ namespace SportoKluboApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> JoinTreniruote(Guid id)
         {
-            /*if (id == Guid.Empty)
+            if (id == Guid.Empty)
             {
                 return RedirectToAction("Index");
-            }*/
+            }
 
             var currentUser = await _userManager.GetUserAsync(User);
 
@@ -84,11 +84,36 @@ namespace SportoKluboApp.Controllers
 
             if (!successful)
             {
-                return BadRequest("Could not join to this treniruote");
+                return RedirectToAction("Index");
             }
 
             return RedirectToAction("Index");
         }
 
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ExitTreniruote(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return Challenge();
+            }
+
+            var successful = await _treniruotesService
+                .ExitTreniruoteAsync(id, currentUser);
+
+            if (!successful)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
