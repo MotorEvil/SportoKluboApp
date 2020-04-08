@@ -1,12 +1,34 @@
 ﻿@model SportoKluboApp.Models.Treniruote
+@using Microsoft.AspNetCore.Identity
 
-    <form asp-action="AddTreniruote" method="post">
-        <label asp-for="Pavadinimas">Add new item:</label>
-        <input asp-for="Pavadinimas" />
-        <label asp-for="Laikas">Iveskite Laika</label>
-        <input asp-for="Laikas"/>
-        <label asp-for="LaisvosVietos">Laisvos Vietos</label>
-        <input asp-for="LaisvosVietos" />
 
-        <button type="submit" id="smm">Submit</button>
-    </form>
+@inject SignInManager<IdentityUser> signInManager
+@inject UserManager<IdentityUser> userManager
+
+@if (signInManager.IsSignedIn(User))
+{
+    var currentUser = await userManager.GetUserAsync(User);
+
+    var isAdmin = currentUser != null
+        && await userManager.IsInRoleAsync(
+            currentUser,
+            Constants.AdministratorRole);
+
+    if (isAdmin)
+    {
+        <form asp-action="AddTreniruote" method="post">
+
+            <label asp-for="Pavadinimas">
+                @Html.ValidationMessageFor(model => model.Pavadinimas, "", new { @class = "text-danger" })
+                Add new item:
+            </label>
+            <input asp-for="Pavadinimas" />
+            <label asp-for="Laikas">Iveskite Laika</label>
+            <input asp-for="Laikas" />
+            <label asp-for="LaisvosVietos">Laisvos Vietos</label>
+            <input asp-for="LaisvosVietos" />
+
+            <button type="submit" id="smm">Submit</button>
+        </form>
+    }
+}

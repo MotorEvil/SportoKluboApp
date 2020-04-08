@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SportoKluboApp.Models
 {
@@ -11,17 +8,22 @@ namespace SportoKluboApp.Models
         public Guid Id { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? Laikas { get; set; }
 
         [Required]
+        [StringLength(100, ErrorMessage ="Pavadinimas pprivalomas!")]
         public string Pavadinimas { get; set; }
 
         public bool IsDone { get; set; }
 
         [Required]
         public int LaisvosVietos { get; set; }
+
         public int Registracijos { get; set; }
 
         public string UserId { get; set; }
+
+        public string TreniruotesDalyviai { get; set; }
     }
 }

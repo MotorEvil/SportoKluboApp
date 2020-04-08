@@ -1,7 +1,6 @@
 ﻿@model SportoKluboApp.Models.ViewModels.TreniruotesViewModel
 @using Humanizer
 
-
 @{
     ViewData["Title"] = "Treniruotes";
 }
@@ -22,21 +21,44 @@
 
         @foreach (var item in Model.Treniruotes)
         {
-            <tr id="bb">
-                <td>
+    <tr id="bb">
+        <td>
+            <input type="hidden" name="id" value="@item.Id">
+        </td>
+        <td>@item.Laikas</td>
+        <td>@item.Pavadinimas</td>
+        <td>@item.LaisvosVietos</td>
+        <td>@item.Registracijos</td>
+        <td>
+
+            @if (item.TreniruotesDalyviai.Contains(User.Identity.Name))
+            {
+                <form id="Exit" asp-controller="Treniruotes" asp-action="ExitTreniruote" method="post">
+                    <input type="submit" value="Exit" class="join-button" />
                     <input type="hidden" name="id" value="@item.Id">
-                </td>
-                <td>@item.Laikas</td>
-                <td>@item.Pavadinimas</td>
-                <td>@item.LaisvosVietos</td>
-                <td>@item.Registracijos</td>
-            </tr>
+                </form>
+            }
+
+            else
+            {
+                if (item.LaisvosVietos != item.Registracijos)
+                {
+                    <form id="Join" asp-controller="Treniruotes" asp-action="JoinTreniruote" method="post">
+                        <input type="submit" value="Join" class="join-button" />
+                        <input type="hidden" name="id" value="@item.Id">
+                    </form>
+                }
+                else
+                {
+                    <label>Treniruote pilna!</label>
+                }
+            }
+        </td>
+    </tr>
         }
     </table>
-
 
     <div class="panel-footer add-item-form">
         @await Html.PartialAsync("AddTreniruotePartial", new Treniruote())
     </div>
-
 </div>

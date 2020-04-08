@@ -1,5 +1,3 @@
-using System;
-
 namespace SportoKluboApp.Models
 {
     public class ErrorViewModel
