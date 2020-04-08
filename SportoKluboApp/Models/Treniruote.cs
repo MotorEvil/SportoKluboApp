@@ -8,9 +8,11 @@ namespace SportoKluboApp.Models
         public Guid Id { get; set; }
 
         [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public DateTime? Laikas { get; set; }
 
         [Required]
+        [StringLength(100, ErrorMessage ="Pavadinimas pprivalomas!")]
         public string Pavadinimas { get; set; }
 
         public bool IsDone { get; set; }

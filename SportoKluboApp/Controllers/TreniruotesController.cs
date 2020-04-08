@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SportoKluboApp.Models;
 using SportoKluboApp.Models.ViewModels;
@@ -39,6 +40,7 @@ namespace SportoKluboApp.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddTreniruote(Treniruote newTreniruote)
         {

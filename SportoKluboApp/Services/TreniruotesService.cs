@@ -27,6 +27,7 @@ namespace SportoKluboApp.Services
             newTreniruote.Id = Guid.NewGuid();
             newTreniruote.Registracijos = 0;
             newTreniruote.IsDone = false;
+            newTreniruote.TreniruotesDalyviai = "";
 
             _context.Items.Add(newTreniruote);
 
