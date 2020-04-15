@@ -16,7 +16,7 @@ namespace SportoKluboApp.Services
             _context = context;
         }
 
-        public async Task<Pasiekimas[]> GetPasiekimasAsync(IdentityUser user)
+        public async Task<Pasiekimas[]> GetPasiekimasAsync(ApplicationUser user)
         {
             return await _context.PasiekimasItem
                 .Where(x => x.UserId == user.Id).ToArrayAsync();

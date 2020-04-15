@@ -1,5 +1,4 @@
-﻿@model  SportoKluboApp.Models.ViewModels.ManageUsersViewModel
-
+﻿@model SportoKluboApp.Models.ViewModels.ManageUsersViewModel
 
 @{
     ViewData["Title"] = "Manage users";
@@ -12,17 +11,15 @@
 <table class="table">
     <thead>
         <tr>
-            <td>Id</td>
             <td>Email</td>
         </tr>
     </thead>
 
     @foreach (var user in Model.Administrators)
     {
-    <tr>
-        <td>@user.Id</td>
-        <td>@user.Email</td>
-    </tr>
+        <tr>
+            <td>@user.Email</td>
+        </tr>
     }
 </table>
 
@@ -31,16 +28,16 @@
 <table class="table">
     <thead>
         <tr>
-            <td>Id</td>
             <td>Email</td>
+            <td>Subscription</td>
         </tr>
     </thead>
 
     @foreach (var user in Model.Everyone)
     {
-    <tr>
-        <td>@user.Id</td>
-        <td>@user.Email</td>
-    </tr>
+        <tr>
+            <td>@user.Email</td>
+            <td>@user.Subscription</td>
+        </tr>
     }
 </table>

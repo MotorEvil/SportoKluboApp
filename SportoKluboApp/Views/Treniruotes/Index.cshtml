@@ -1,11 +1,16 @@
 ﻿@model SportoKluboApp.Models.ViewModels.TreniruotesViewModel
-@using Humanizer
+
+@using Microsoft.AspNetCore.Identity
+@using SportoKluboApp.Models
+
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
 
 @{
     ViewData["Title"] = "Treniruotes";
 }
 
-<div class="panel panel-default todo-panel">
+<div class="panel panel-default">
     <div class="panel-heading">@ViewData["Title"]</div>
 
     <table class="table table-hover" id="aa">
@@ -18,43 +23,61 @@
                 <td>Dalyviu skaicius</td>
             </tr>
         </thead>
-
         @foreach (var item in Model.Treniruotes)
         {
-    <tr id="bb">
-        <td>
-            <input type="hidden" name="id" value="@item.Id">
-        </td>
-        <td>@item.Laikas</td>
-        <td>@item.Pavadinimas</td>
-        <td>@item.LaisvosVietos</td>
-        <td>@item.Registracijos</td>
-        <td>
-
-            @if (item.TreniruotesDalyviai.Contains(User.Identity.Name))
-            {
-                <form id="Exit" asp-controller="Treniruotes" asp-action="ExitTreniruote" method="post">
-                    <input type="submit" value="Exit" class="join-button" />
+            <tr id="bb">
+                <td>
                     <input type="hidden" name="id" value="@item.Id">
-                </form>
-            }
+                </td>
+                <td>@item.Laikas</td>
+                <td>@item.Pavadinimas</td>
+                <td>@item.LaisvosVietos</td>
+                <td>@item.Registracijos</td>
+                <td>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+                        var currentUser = await userManager.GetUserAsync(User);
 
-            else
-            {
-                if (item.LaisvosVietos != item.Registracijos)
-                {
-                    <form id="Join" asp-controller="Treniruotes" asp-action="JoinTreniruote" method="post">
-                        <input type="submit" value="Join" class="join-button" />
-                        <input type="hidden" name="id" value="@item.Id">
-                    </form>
-                }
-                else
-                {
-                    <label>Treniruote pilna!</label>
-                }
-            }
-        </td>
-    </tr>
+                        var isAdmin = currentUser != null
+                            && await userManager.IsInRoleAsync(
+                                currentUser, Constants.AdministratorRole);
+
+                        if (isAdmin == false)
+                        {
+                            @if (item.TreniruotesDalyviai.Contains(User.Identity.Name))
+                            {
+                                <form id="Exit" asp-controller="Treniruotes" asp-action="ExitTreniruote" method="post">
+                                    <input type="submit" value="Exit" class="join-button" />
+                                    <input type="hidden" name="id" value="@item.Id">
+                                </form>
+                            }
+
+                            else
+                            {
+                                if (item.LaisvosVietos != item.Registracijos)
+                                {
+                                    <form id="Join" asp-controller="Treniruotes" asp-action="JoinTreniruote" method="post">
+                                        <input type="submit" value="Join" class="join-button" />
+                                        <input type="hidden" name="id" value="@item.Id">
+                                    </form>
+                                }
+                                else
+                                {
+                                    <label>Treniruote pilna!</label>
+                                }
+                            }
+                        }
+
+                        if (isAdmin)
+                        {
+                            <form id="List" asp-controller="Treniruotes" asp-action="WorkoutUsers" method="post">
+                                <input type="submit" value="List" class="join-button" />
+                                <input type="hidden" name="id" value="@item.Id">
+                            </form>
+                        }
+                    }
+                </td>
+            </tr>
         }
     </table>
 

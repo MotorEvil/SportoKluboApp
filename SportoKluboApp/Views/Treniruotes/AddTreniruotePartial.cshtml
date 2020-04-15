@@ -1,9 +1,8 @@
 ﻿@model SportoKluboApp.Models.Treniruote
 @using Microsoft.AspNetCore.Identity
 
-
-@inject SignInManager<IdentityUser> signInManager
-@inject UserManager<IdentityUser> userManager
+@inject SignInManager<ApplicationUser> signInManager
+@inject UserManager<ApplicationUser> userManager
 
 @if (signInManager.IsSignedIn(User))
 {

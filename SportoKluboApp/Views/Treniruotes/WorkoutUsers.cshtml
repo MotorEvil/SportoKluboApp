@@ -1,0 +1,28 @@
+﻿@model string[]
+
+
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>Dalyviai</td>
+                </tr>
+            </thead>
+
+
+            @foreach (var item in Model)
+            {
+        <tr>
+            @if (item != " ")
+            {
+                <td>@item</td>
+
+                <td>
+                   knopke
+                </td>
+            }
+
+        </tr>
+            }
+        </table>
+    </div>

@@ -12,7 +12,7 @@ namespace SportoKluboApp.Models
         public DateTime? Laikas { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage ="Pavadinimas pprivalomas!")]
+        [StringLength(100, ErrorMessage = "Pavadinimas pprivalomas!")]
         public string Pavadinimas { get; set; }
 
         public bool IsDone { get; set; }
