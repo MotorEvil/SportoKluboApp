@@ -118,6 +118,8 @@ namespace SportoKluboApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> WorkoutUsers(Guid id)
         {
             if (id == Guid.Empty)

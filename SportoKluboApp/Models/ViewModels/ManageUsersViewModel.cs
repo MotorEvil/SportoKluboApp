@@ -7,5 +7,6 @@ namespace SportoKluboApp.Models.ViewModels
         public ApplicationUser[] Administrators { get; set; }
 
         public ApplicationUser[] Everyone { get; set; }
+
     }
 }

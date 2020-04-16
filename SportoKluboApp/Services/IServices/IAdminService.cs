@@ -1,4 +1,5 @@
-﻿using SportoKluboApp.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using SportoKluboApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,8 @@ namespace SportoKluboApp.Services
         Task<bool> AddWorkoutAsync(Treniruote newTreniruote);
 
         Task<string[]> WorkoutUsersAsync(Guid id);
+
+        Task<IdentityResult> AddSubscriptionAsync(Guid id);
+
     }
 }
