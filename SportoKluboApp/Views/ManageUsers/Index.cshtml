@@ -39,7 +39,7 @@
     <td>@user.Email</td>
     <td>
         <form asp-action="AddSubscription" method="post">
-            <input asp-for="@user.Subscription" />
+            <input asp-for="@user.Subscription" name="sub" />
             <input type="hidden" name="id" value="@user.Id" />
             <button type="submit">Saugoti</button>
         </form>

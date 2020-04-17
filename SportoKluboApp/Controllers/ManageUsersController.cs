@@ -42,25 +42,25 @@ namespace SportoKluboApp.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddSubscription(Guid id)
+        public async Task<IActionResult> AddSubscription(Guid id, int sub)
         {
             if (id == null)
             {
                 return RedirectToAction("Index");
             }
 
-            var successful = await _adminService.AddSubscriptionAsync(id);
+            var successful = await _adminService.AddSubscriptionAsync(id, sub);
 
             if (successful.Succeeded)
             {
                 return RedirectToAction("Index");
             }
 
-            foreach (var error in successful.Errors)
+/*            foreach (var error in successful.Errors)
             {
                 ModelState.AddModelError("", error.Description);
             }
-            return RedirectToAction("Index");
+*/            return RedirectToAction("Index");
 
         }
     }

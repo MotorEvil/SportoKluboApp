@@ -138,5 +138,26 @@ namespace SportoKluboApp.Controllers
 
             return View(userList);
         }
+
+        [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> WorkoutIsDone(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return Challenge();
+            }
+
+            var userList = await _adminService.WorkoutIsDoneAsync(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

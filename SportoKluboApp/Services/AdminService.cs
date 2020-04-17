@@ -46,18 +46,33 @@ namespace SportoKluboApp.Services
             return users;
         }
 
-        public async Task<IdentityResult> AddSubscriptionAsync(Guid id)
+        public async Task<IdentityResult> AddSubscriptionAsync(Guid id, int subs)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
 
-            var model = new ApplicationUser
-            {
-                Subscription = user.Subscription
-            };
+            user.Subscription = subs;
 
             var saveResult = await _userManager.UpdateAsync(user);
 
             return saveResult;
+        }
+
+        public async Task<bool> WorkoutIsDoneAsync(Guid id)
+        {
+            var item = await _context.Items
+                .Where(x => x.Id == id)
+                .SingleOrDefaultAsync();
+
+            if (item == null)
+            {
+                return false;
+            }
+
+            item.IsDone = true;
+
+            var saveResult = await _context.SaveChangesAsync();
+
+            return saveResult == 1;
         }
     }
 }
