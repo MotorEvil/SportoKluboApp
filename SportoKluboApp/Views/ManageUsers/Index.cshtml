@@ -39,11 +39,24 @@
     <td>@user.Email</td>
     <td>
         <form asp-action="AddSubscription" method="post">
-            <input asp-for="@user.Subscription" name="sub" />
+            <input id="sub" asp-for="@user.Subscription" name="sub" />
             <input type="hidden" name="id" value="@user.Id" />
-            <button type="submit">Saugoti</button>
+            <button id="sub1" type="submit">Saugoti</button>
         </form>
     </td>
 </tr>
     }
 </table>
+
+<style>
+    #sub{
+        width:40px;
+    }
+    #sub1{
+        border-radius:10px;
+        border-color:black;
+        border-width:2px;
+        background-color:white;
+
+    }
+</style>

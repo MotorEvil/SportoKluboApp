@@ -12,30 +12,20 @@
 
 <div class="panel panel-default">
     <div class="panel-heading">@ViewData["Title"]</div>
-
     <table class="table table-hover" id="aa">
-        <thead>
-            <tr>
-                <td> </td>
-                <td>Laikas</td>
-                <td>Pavadinimas</td>
-                <td>Laisvu vietu skaicius</td>
-                <td>Dalyviu skaicius</td>
-            </tr>
-        </thead>
+
         @foreach (var item in Model.Treniruotes)
         {
+            <tr >
+                <td id="laikoTR">@item.Laikas</td>
+            </tr>
             <tr id="bb">
-                <td>
-                    <input type="hidden" name="id" value="@item.Id">
-                </td>
-                <td>@item.Laikas</td>
                 <td>@item.Pavadinimas</td>
-                <td>@item.LaisvosVietos</td>
-                <td>@item.Registracijos</td>
-                <td>
+                <td>@item.Registracijos/@item.LaisvosVietos</td>
+                <td id="buttons">
                     @if (signInManager.IsSignedIn(User))
                     {
+
                         var currentUser = await userManager.GetUserAsync(User);
 
                         var isAdmin = currentUser != null
@@ -46,8 +36,8 @@
                         {
                             @if (item.TreniruotesDalyviai.Contains(User.Identity.Name))
                             {
-                                <form id="Exit" asp-controller="Treniruotes" asp-action="ExitTreniruote" method="post">
-                                    <input type="submit" value="Exit" class="join-button" />
+                                <form asp-controller="Treniruotes" asp-action="ExitTreniruote" method="post">
+                                    <input id="Exit" type="submit" value="Exit" class="join-button" />
                                     <input type="hidden" name="id" value="@item.Id">
                                 </form>
                             }
@@ -56,35 +46,44 @@
                             {
                                 if (item.LaisvosVietos != item.Registracijos)
                                 {
-                                    <form id="Join" asp-controller="Treniruotes" asp-action="JoinTreniruote" method="post">
-                                        <input type="submit" value="Join" class="join-button" />
+                                    <form asp-controller="Treniruotes" asp-action="JoinTreniruote" method="post">
+                                        <input id="Join" type="submit" value="Join" class="join-button" />
                                         <input type="hidden" name="id" value="@item.Id">
                                     </form>
                                 }
                                 else
                                 {
-                                    <label>Treniruote pilna!</label>
+                                    <label id="FullWorkout">Treniruote pilna!</label>
                                 }
                             }
                         }
 
                         if (isAdmin)
                         {
-                            <form id="List" asp-controller="Treniruotes" asp-action="WorkoutUsers" method="post">
-                                <input type="submit" value="List" class="join-button" />
+                            <form asp-controller="Treniruotes" asp-action="WorkoutUsers" method="post">
+                                <input id="List" type="submit" value="List" class="join-button" />
                                 <input type="hidden" name="id" value="@item.Id">
                             </form>
                             @if (item.IsDone == false)
                             {
-                                <form id="IsDone" asp-controller="Treniruotes" asp-action="WorkoutIsDone" method="post">
-                                    <input type="submit" value="Done" class="join-button" />
+                                <form asp-controller="Treniruotes" asp-action="WorkoutIsDone" method="post">
+                                    <input id="IsDone" type="submit" value="Done" class="join-button" />
                                     <input type="hidden" name="id" value="@item.Id">
                                 </form>
                             }
                         }
                     }
+
+                    else
+                    {
+                        <label>Reikia prisijungti!</label>
+                    }
                 </td>
             </tr>
+            <tr>
+                <td></td>
+            </tr>
+
         }
     </table>
 
@@ -92,3 +91,42 @@
         @await Html.PartialAsync("AddTreniruotePartial", new Treniruote())
     </div>
 </div>
+
+
+<style>
+    #laikoTR{
+        border:none;
+    }
+
+    #Exit{
+        border-color:red;
+        border-radius: 7.5px;
+        color: red;
+        background-color:white;
+    }
+
+    #Join {
+        border-color: darkblue;
+        border-radius: 7.5px;
+        color: darkblue;
+        background-color: white;
+        align-items:baseline;
+    }
+
+    #FullWorkout{
+        color:red;
+    }
+
+    #bb{
+        border:solid;
+        border-color:darkgoldenrod;
+        background-color:antiquewhite;
+        align-content:center;
+
+    }
+
+    #buttons{
+        text-align:center;
+      }
+
+</style>

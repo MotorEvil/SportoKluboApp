@@ -56,11 +56,7 @@ namespace SportoKluboApp.Controllers
                 return RedirectToAction("Index");
             }
 
-/*            foreach (var error in successful.Errors)
-            {
-                ModelState.AddModelError("", error.Description);
-            }
-*/            return RedirectToAction("Index");
+            return RedirectToAction("Index");
 
         }
     }
