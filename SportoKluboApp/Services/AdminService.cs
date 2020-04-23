@@ -39,9 +39,18 @@ namespace SportoKluboApp.Services
             var item = await _context.Items
                 .Where(x => x.Id == id)
                 .SingleOrDefaultAsync();
-            char[] charsTotrim = { ',', ' ' };
 
-            var users = item.TreniruotesDalyviai.Trim(charsTotrim).Split(", ").ToArray();
+            var users = _userManager.Users.ToArray();
+
+            var model = new WorkoutUser
+            {
+                TreniruoteId = item.Id,
+
+            }
+
+
+
+
 
             return users;
         }
@@ -73,6 +82,19 @@ namespace SportoKluboApp.Services
             var saveResult = await _context.SaveChangesAsync();
 
             return saveResult == 1;
+        }
+
+
+        //In Development
+        public async Task<IdentityResult> MinusSubscriptionAsync(Guid id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            user.Subscription--;
+
+            var saveResult = await _userManager.UpdateAsync(user);
+
+            return saveResult;
         }
     }
 }

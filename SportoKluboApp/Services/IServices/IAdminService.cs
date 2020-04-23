@@ -17,5 +17,6 @@ namespace SportoKluboApp.Services
 
         Task<bool> WorkoutIsDoneAsync(Guid id);
 
+        Task<IdentityResult> MinusSubscriptionAsync(Guid id);
     }
 }

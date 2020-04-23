@@ -159,5 +159,24 @@ namespace SportoKluboApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MinusSubscription(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var successful = await _adminService.MinusSubscriptionAsync(id);
+
+            if (successful.Succeeded)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }

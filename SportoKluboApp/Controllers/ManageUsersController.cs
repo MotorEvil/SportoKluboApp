@@ -44,7 +44,7 @@ namespace SportoKluboApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddSubscription(Guid id, int sub)
         {
-            if (id == null)
+            if (id == Guid.Empty)
             {
                 return RedirectToAction("Index");
             }

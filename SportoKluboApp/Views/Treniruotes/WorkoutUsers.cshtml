@@ -1,28 +1,31 @@
 ﻿@model string[]
 
 
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <td>Dalyviai</td>
-                </tr>
-            </thead>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <td>Dalyviai</td>
+            </tr>
+        </thead>
 
 
-            @foreach (var item in Model)
-            {
-        <tr>
-            @if (item != " ")
-            {
-                <td>@item</td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if (User.Identities.Equals(item))
+                {
+                    <td>@item</td>
 
-                <td>
-                   knopke
-                </td>
-            }
+                    <td>
+                        <form asp-controller="Treniruotes" asp-action="MinusSubscription" method="post">
+                            <input id="Minus" type="submit" value="Minus" class="join-button" />
+                            <input type="hidden" name="id" value="@User.Identity.Name">
+                        </form>
+                    </td>
+                }
 
-        </tr>
-            }
-        </table>
-    </div>
+            </tr>
+        }
+    </table>
+</div>

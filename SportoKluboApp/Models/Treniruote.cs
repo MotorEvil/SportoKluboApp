@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SportoKluboApp.Models
 {
@@ -25,5 +27,7 @@ namespace SportoKluboApp.Models
         public string UserId { get; set; }
 
         public string TreniruotesDalyviai { get; set; }
+
+        public ICollection<WorkoutUser> WorkoutUsers { get; set; }
     }
 }

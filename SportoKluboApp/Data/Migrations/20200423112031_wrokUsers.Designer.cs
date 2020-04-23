@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SportoKluboApp.Data;
 
 namespace SportoKluboApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200423112031_wrokUsers")]
+    partial class wrokUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -198,6 +200,9 @@ namespace SportoKluboApp.Migrations
                     b.Property<int>("Subscription")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("TreniruoteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -214,6 +219,8 @@ namespace SportoKluboApp.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("TreniruoteId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -276,21 +283,6 @@ namespace SportoKluboApp.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("SportoKluboApp.Models.WorkoutUser", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<Guid>("TreniruoteId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("UserId", "TreniruoteId");
-
-                    b.HasIndex("TreniruoteId");
-
-                    b.ToTable("workoutUsers");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -342,19 +334,11 @@ namespace SportoKluboApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SportoKluboApp.Models.WorkoutUser", b =>
+            modelBuilder.Entity("SportoKluboApp.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("SportoKluboApp.Models.Treniruote", "Treniruote")
-                        .WithMany("WorkoutUsers")
-                        .HasForeignKey("TreniruoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SportoKluboApp.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany("WorkoutUsers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("SportoKluboApp.Models.Treniruote", null)
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("TreniruoteId");
                 });
 #pragma warning restore 612, 618
         }

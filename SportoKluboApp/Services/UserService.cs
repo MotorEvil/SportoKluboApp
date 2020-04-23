@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SportoKluboApp.Data;
 using SportoKluboApp.Models;
+using SportoKluboApp.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +31,15 @@ namespace SportoKluboApp.Services
                 return false;
             }
 
+            var model = new WorkoutUser
+            {
+                TreniruoteId = item.Id,
+                UserId = user.Id
+            };
+
             if (item.Registracijos != item.LaisvosVietos)
             {
-                item.TreniruotesDalyviai = item.TreniruotesDalyviai + user.UserName + ", ";
-
+                _context.workoutUsers.Add(model);
                 item.Registracijos++;
             }
 
@@ -67,6 +73,7 @@ namespace SportoKluboApp.Services
 
             return saveResult == 1;
         }
+
 
     }
 }

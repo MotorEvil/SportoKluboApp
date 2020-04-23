@@ -10,5 +10,6 @@ namespace SportoKluboApp.Models
     {
         public int Subscription { get; set; }
 
+        public ICollection<WorkoutUser> WorkoutUsers { get; set; }
     }
 }

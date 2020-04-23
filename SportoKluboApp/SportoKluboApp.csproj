@@ -5,6 +5,11 @@
     <UserSecretsId>aspnet-SportoKluboApp-C8F8F243-4769-4411-8A11-6B72B4235C83</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20200423111811_WorkUsers.cs" />
+    <Compile Remove="Data\Migrations\20200423111811_WorkUsers.Designer.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Humanizer" Version="2.7.9" />
