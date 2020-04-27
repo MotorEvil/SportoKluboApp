@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SportoKluboApp.Models;
 using SportoKluboApp.Models.ViewModels;
 using SportoKluboApp.Services;
@@ -134,9 +135,11 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var userList = await _adminService.WorkoutUsersAsync(id);
+            var userList = await _userManager.Users.ToArrayAsync();
 
-            return View(userList);
+
+
+            return View("WorkoutUsers");
         }
 
         [Authorize(Roles = "Administrator")]

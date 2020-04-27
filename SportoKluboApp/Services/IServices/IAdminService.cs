@@ -11,7 +11,7 @@ namespace SportoKluboApp.Services
     {
         Task<bool> AddWorkoutAsync(Treniruote newTreniruote);
 
-        Task<string[]> WorkoutUsersAsync(Guid id);
+       //ask<string[]> WorkoutUsersAsync(Guid id);
 
         Task<IdentityResult> AddSubscriptionAsync(Guid id, int sub);
 

@@ -2,9 +2,11 @@
 
 @using Microsoft.AspNetCore.Identity
 @using SportoKluboApp.Models
+@using SportoKluboApp.Data;
 
 @inject SignInManager<ApplicationUser> signInManager
 @inject UserManager<ApplicationUser> userManager
+@inject ApplicationDbContext _context
 
 @{
     ViewData["Title"] = "Treniruotes";
@@ -16,46 +18,51 @@
 
         @foreach (var item in Model.Treniruotes)
         {
-            <tr >
+
+            <tr>
                 <td id="laikoTR">@item.Laikas</td>
             </tr>
             <tr id="bb">
+                <td>@item.Id</td>
                 <td>@item.Pavadinimas</td>
                 <td>@item.Registracijos/@item.LaisvosVietos</td>
                 <td id="buttons">
                     @if (signInManager.IsSignedIn(User))
                     {
-
                         var currentUser = await userManager.GetUserAsync(User);
 
+                        var qq = _context.workoutUsers
+                            .Where(x => x.TreniruoteId == item.Id && x.UserId == currentUser.Id)
+                            .SingleOrDefault();
+
                         var isAdmin = currentUser != null
-                            && await userManager.IsInRoleAsync(
-                                currentUser, Constants.AdministratorRole);
+                                && await userManager.IsInRoleAsync(
+                                    currentUser, Constants.AdministratorRole);
 
                         if (isAdmin == false && item.IsDone == false)
                         {
-                            @if (item.TreniruotesDalyviai.Contains(User.Identity.Name))
-                            {
-                                <form asp-controller="Treniruotes" asp-action="ExitTreniruote" method="post">
-                                    <input id="Exit" type="submit" value="Exit" class="join-button" />
-                                    <input type="hidden" name="id" value="@item.Id">
-                                </form>
-                            }
 
-                            else
-                            {
-                                if (item.LaisvosVietos != item.Registracijos)
+                                @if (qq != null)
                                 {
-                                    <form asp-controller="Treniruotes" asp-action="JoinTreniruote" method="post">
-                                        <input id="Join" type="submit" value="Join" class="join-button" />
+                                    <form asp-controller="Treniruotes" asp-action="ExitTreniruote" method="post">
+                                        <input id="Exit" type="submit" value="Exit" class="join-button" />
                                         <input type="hidden" name="id" value="@item.Id">
                                     </form>
                                 }
                                 else
                                 {
-                                    <label id="FullWorkout">Treniruote pilna!</label>
+                                    @if (item.LaisvosVietos != item.Registracijos)
+                                    {
+                                        <form asp-controller="Treniruotes" asp-action="JoinTreniruote" method="post">
+                                            <input id="Join" type="submit" value="Join" class="join-button" />
+                                            <input type="hidden" name="id" value="@item.Id">
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <label id="FullWorkout">Treniruote pilna!</label>
+                                    }
                                 }
-                            }
                         }
 
                         if (isAdmin)
@@ -94,15 +101,15 @@
 
 
 <style>
-    #laikoTR{
-        border:none;
+    #laikoTR {
+        border: none;
     }
 
-    #Exit{
-        border-color:red;
+    #Exit {
+        border-color: red;
         border-radius: 7.5px;
         color: red;
-        background-color:white;
+        background-color: white;
     }
 
     #Join {
@@ -110,23 +117,21 @@
         border-radius: 7.5px;
         color: darkblue;
         background-color: white;
-        align-items:baseline;
+        align-items: baseline;
     }
 
-    #FullWorkout{
-        color:red;
+    #FullWorkout {
+        color: red;
     }
 
-    #bb{
-        border:solid;
-        border-color:darkgoldenrod;
-        background-color:antiquewhite;
-        align-content:center;
-
+    #bb {
+        border: solid;
+        border-color: darkgoldenrod;
+        background-color: antiquewhite;
+        align-content: center;
     }
 
-    #buttons{
-        text-align:center;
-      }
-
+    #buttons {
+        text-align: center;
+    }
 </style>

@@ -59,8 +59,13 @@ namespace SportoKluboApp.Services
                 return false;
             }
 
-            item.TreniruotesDalyviai = item.TreniruotesDalyviai
-                .Replace(user.UserName + ", ", "");
+            var model = new WorkoutUser
+            {
+                TreniruoteId = item.Id,
+                UserId = user.Id
+            };
+
+            _context.workoutUsers.Remove(model);
 
             item.Registracijos--;
 

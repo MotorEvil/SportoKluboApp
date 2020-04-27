@@ -34,7 +34,7 @@ namespace SportoKluboApp.Services
             return saveResult == 1;
         }
 
-        public async Task<string[]> WorkoutUsersAsync(Guid id)
+       /* public async Task<string[]> WorkoutUsersAsync(Guid id)
         {
             var item = await _context.Items
                 .Where(x => x.Id == id)
@@ -42,18 +42,9 @@ namespace SportoKluboApp.Services
 
             var users = _userManager.Users.ToArray();
 
-            var model = new WorkoutUser
-            {
-                TreniruoteId = item.Id,
 
-            }
-
-
-
-
-
-            return users;
-        }
+            return item;
+        }*/
 
         public async Task<IdentityResult> AddSubscriptionAsync(Guid id, int subs)
         {

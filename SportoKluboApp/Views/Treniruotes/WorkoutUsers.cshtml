@@ -1,4 +1,4 @@
-﻿@model string[]
+﻿@model WorkoutUser
 
 
 <div>
@@ -10,7 +10,7 @@
         </thead>
 
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.UserId)
         {
             <tr>
                 @if (User.Identities.Equals(item))
