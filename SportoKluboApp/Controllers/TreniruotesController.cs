@@ -2,16 +2,20 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SportoKluboApp.Data;
 using SportoKluboApp.Models;
 using SportoKluboApp.Models.ViewModels;
 using SportoKluboApp.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SportoKluboApp.Controllers
 {
     public class TreniruotesController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IWorkoutService _workoutService;
         private readonly IAdminService _adminService;
@@ -20,12 +24,14 @@ namespace SportoKluboApp.Controllers
         public TreniruotesController(UserManager<ApplicationUser> userManager,
             IWorkoutService treniruotesService,
             IAdminService adminService,
-            IUserService userService)
+            IUserService userService,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _workoutService = treniruotesService;
             _adminService = adminService;
             _userService = userService;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -135,11 +141,12 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var userList = await _userManager.Users.ToArrayAsync();
+            var userList =  _context.workoutUsers
+                .Where(x => x.TreniruoteId == id)
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Treniruote);
 
-
-
-            return View("WorkoutUsers");
+            return View(userList);
         }
 
         [Authorize(Roles = "Administrator")]
@@ -165,7 +172,7 @@ namespace SportoKluboApp.Controllers
 
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> MinusSubscription(Guid id)
+        public async Task<IActionResult> MinusSubscription(Guid id, string tid)
         {
             if (id == Guid.Empty)
             {
@@ -174,12 +181,7 @@ namespace SportoKluboApp.Controllers
 
             var successful = await _adminService.MinusSubscriptionAsync(id);
 
-            if (successful.Succeeded)
-            {
-                return RedirectToAction("Index");
-            }
-
-            return RedirectToAction("Index");
+            return RedirectToAction("WorkoutUsers");
         }
     }
 }

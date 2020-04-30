@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SportoKluboApp.Data;
 using SportoKluboApp.Models;
-using SportoKluboApp.Models.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SportoKluboApp.Services
@@ -78,7 +74,5 @@ namespace SportoKluboApp.Services
 
             return saveResult == 1;
         }
-
-
     }
 }

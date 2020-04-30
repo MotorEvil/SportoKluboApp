@@ -17,7 +17,7 @@ namespace SportoKluboApp.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAdminService _adminService;
 
-        public ManageUsersController(IAdminService adminService ,UserManager<ApplicationUser> userManager)
+        public ManageUsersController(IAdminService adminService, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _adminService = adminService;
@@ -57,7 +57,6 @@ namespace SportoKluboApp.Controllers
             }
 
             return RedirectToAction("Index");
-
         }
     }
 }

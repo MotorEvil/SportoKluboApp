@@ -35,28 +35,28 @@
 
     @foreach (var user in Model.Everyone)
     {
-<tr>
-    <td>@user.Email</td>
-    <td>
-        <form asp-action="AddSubscription" method="post">
-            <input id="sub" asp-for="@user.Subscription" name="sub" />
-            <input type="hidden" name="id" value="@user.Id" />
-            <button id="sub1" type="submit">Saugoti</button>
-        </form>
-    </td>
-</tr>
+        <tr>
+            <td>@user.Email</td>
+            <td>
+                <form asp-action="AddSubscription" method="post">
+                    <input id="sub" asp-for="@user.Subscription" name="sub" />
+                    <input type="hidden" name="id" value="@user.Id" />
+                    <button id="sub1" type="submit">Saugoti</button>
+                </form>
+            </td>
+        </tr>
     }
 </table>
 
 <style>
-    #sub{
-        width:40px;
+    #sub {
+        width: 40px;
     }
-    #sub1{
-        border-radius:10px;
-        border-color:black;
-        border-width:2px;
-        background-color:white;
 
+    #sub1 {
+        border-radius: 10px;
+        border-color: black;
+        border-width: 2px;
+        background-color: white;
     }
 </style>

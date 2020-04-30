@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SportoKluboApp.Data;
 using SportoKluboApp.Models;
-using SportoKluboApp.Models.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,18 +31,6 @@ namespace SportoKluboApp.Services
             var saveResult = await _context.SaveChangesAsync();
             return saveResult == 1;
         }
-
-       /* public async Task<string[]> WorkoutUsersAsync(Guid id)
-        {
-            var item = await _context.Items
-                .Where(x => x.Id == id)
-                .SingleOrDefaultAsync();
-
-            var users = _userManager.Users.ToArray();
-
-
-            return item;
-        }*/
 
         public async Task<IdentityResult> AddSubscriptionAsync(Guid id, int subs)
         {
@@ -75,14 +61,16 @@ namespace SportoKluboApp.Services
             return saveResult == 1;
         }
 
-
         //In Development
         public async Task<IdentityResult> MinusSubscriptionAsync(Guid id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
 
             user.Subscription--;
-
+            if (user.Subscription < 0)
+            {
+                user.Subscription = 0;
+            }
             var saveResult = await _userManager.UpdateAsync(user);
 
             return saveResult;

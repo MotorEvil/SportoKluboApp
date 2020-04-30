@@ -1,31 +1,21 @@
-﻿@model WorkoutUser
+﻿@model IEnumerable<SportoKluboApp.Models.WorkoutUser>
 
-
-<div>
-    <table>
-        <thead>
-            <tr>
-                <td>Dalyviai</td>
-            </tr>
-        </thead>
-
-
-        @foreach (var item in Model.UserId)
-        {
-            <tr>
-                @if (User.Identities.Equals(item))
-                {
-                    <td>@item</td>
-
-                    <td>
-                        <form asp-controller="Treniruotes" asp-action="MinusSubscription" method="post">
-                            <input id="Minus" type="submit" value="Minus" class="join-button" />
-                            <input type="hidden" name="id" value="@User.Identity.Name">
-                        </form>
-                    </td>
-                }
-
-            </tr>
-        }
-    </table>
-</div>
+<table class="table">
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+            </td>
+            <td>@item.TreniruoteId</td>
+            <td>
+                <form asp-controller="Treniruotes" asp-action="MinusSubscription" method="post">
+                    <input id="was" type="submit" value="Dalyvavo" class="join-button" />
+                    <input type="hidden" name="id" value="@item.ApplicationUser.Id">
+                    <input type="hidden" asp-for="@item.TreniruoteId" name="tid" />
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

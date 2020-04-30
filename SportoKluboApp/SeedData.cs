@@ -1,5 +1,4 @@
-﻿
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using SportoKluboApp.Models;
@@ -11,7 +10,7 @@ namespace SportoKluboApp
 {
     public static class SeedData
     {
-         public static async Task InitializeAsync(IServiceProvider services)
+        public static async Task InitializeAsync(IServiceProvider services)
         {
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
             await EnsureRolesAsync(roleManager);
