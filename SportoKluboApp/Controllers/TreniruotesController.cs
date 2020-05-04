@@ -172,7 +172,7 @@ namespace SportoKluboApp.Controllers
 
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> MinusSubscription(Guid id, string tid)
+        public async Task<IActionResult> MinusSubscription(Guid id)
         {
             if (id == Guid.Empty)
             {
@@ -181,7 +181,8 @@ namespace SportoKluboApp.Controllers
 
             var successful = await _adminService.MinusSubscriptionAsync(id);
 
-            return RedirectToAction("WorkoutUsers");
+
+            return View("WorkoutUsers");
         }
     }
 }
