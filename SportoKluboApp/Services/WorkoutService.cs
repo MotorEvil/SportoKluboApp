@@ -17,7 +17,7 @@ namespace SportoKluboApp.Services
 
         public async Task<Treniruote[]> GetTreniruotesAsync()
         {
-            return await _context.Items.Where(x => x.IsDone == false).Include(x => x.WorkoutUsers).ToArrayAsync();
+            return await _context.Items.Where(x => x.IsDone == false).Include(x => x.WorkoutUsers).OrderBy(x => x.Laikas).ToArrayAsync();
         }
     }
 }

@@ -8,6 +8,22 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20200423111811_WorkUsers.cs" />
     <Compile Remove="Data\Migrations\20200423111811_WorkUsers.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200505122550_date.cs" />
+    <Compile Remove="Data\Migrations\20200505122550_date.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200505130653_date.cs" />
+    <Compile Remove="Data\Migrations\20200505130653_date.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200506073302_time.cs" />
+    <Compile Remove="Data\Migrations\20200506073302_time.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200506073635_time.cs" />
+    <Compile Remove="Data\Migrations\20200506073635_time.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200506074037_laikas.cs" />
+    <Compile Remove="Data\Migrations\20200506074037_laikas.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200506080911_laikas.cs" />
+    <Compile Remove="Data\Migrations\20200506080911_laikas.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200506081026_laikas.cs" />
+    <Compile Remove="Data\Migrations\20200506081026_laikas.Designer.cs" />
+    <Compile Remove="Data\Migrations\20200506085303_laikasup.cs" />
+    <Compile Remove="Data\Migrations\20200506085303_laikasup.Designer.cs" />
   </ItemGroup>
 
 

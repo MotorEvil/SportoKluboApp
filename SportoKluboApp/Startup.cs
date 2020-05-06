@@ -54,7 +54,7 @@ namespace SportoKluboApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseRequestLocalization();
             app.UseRouting();
 
             app.UseAuthentication();

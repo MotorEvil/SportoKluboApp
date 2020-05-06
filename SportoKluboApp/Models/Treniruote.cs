@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SportoKluboApp.Models
 {
@@ -9,7 +10,9 @@ namespace SportoKluboApp.Models
         public Guid Id { get; set; }
 
         [Required]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
+        [Column(TypeName = "DateTime")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy HH:mm}")]
+        //[DataType(DataType.DateTime)]
         public DateTime? Laikas { get; set; }
 
         [Required]
