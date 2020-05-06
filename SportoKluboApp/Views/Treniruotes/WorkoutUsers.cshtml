@@ -1,0 +1,20 @@
+﻿@model IEnumerable<SportoKluboApp.Models.WorkoutUser>
+
+<table class="table">
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+            </td>
+            <td>@item.TreniruoteId</td>
+            <td>
+                <form asp-controller="Treniruotes" asp-action="MinusSubscription" method="get">
+                    <input id="was" type="submit" value="Dalyvavo" class="join-button" />
+                    <input type="hidden" name="id" value="@item.ApplicationUser.Id">
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

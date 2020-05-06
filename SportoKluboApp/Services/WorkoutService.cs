@@ -6,19 +6,18 @@ using System.Threading.Tasks;
 
 namespace SportoKluboApp.Services
 {
-    public class PasiekimaiService : IPasiekimaiService
+    public class WorkoutService : IWorkoutService
     {
         private readonly ApplicationDbContext _context;
 
-        public PasiekimaiService(ApplicationDbContext context)
+        public WorkoutService(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task<Pasiekimas[]> GetPasiekimasAsync(ApplicationUser user)
+        public async Task<Treniruote[]> GetTreniruotesAsync()
         {
-            return await _context.PasiekimasItem
-                .Where(x => x.UserId == user.Id).ToArrayAsync();
+            return await _context.Items.Where(x => x.IsDone == false).Include(x => x.WorkoutUsers).ToArrayAsync();
         }
     }
 }

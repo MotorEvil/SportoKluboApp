@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace SportoKluboApp.Models
@@ -12,7 +13,7 @@ namespace SportoKluboApp.Models
         public DateTime? Laikas { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage ="Pavadinimas pprivalomas!")]
+        [StringLength(100, ErrorMessage = "Pavadinimas pprivalomas!")]
         public string Pavadinimas { get; set; }
 
         public bool IsDone { get; set; }
@@ -25,5 +26,7 @@ namespace SportoKluboApp.Models
         public string UserId { get; set; }
 
         public string TreniruotesDalyviai { get; set; }
+
+        public ICollection<WorkoutUser> WorkoutUsers { get; set; }
     }
 }

@@ -1,0 +1,41 @@
+﻿PROJECT IDEAS && FEATURES NEEDED TO BE ADDED && BUG FIXES:
+
+
+WORKOUT LIST:
+
+1.Fix DateTime in AddNewWorkout to 24h period
+2.Only Admin can see features in workout information:
+    2.1. View list of users in workout
+    2.2. Confirm that user was in workout:
+        2.2.1. If user was not in workout, admin confirms that with button function witch will delete user from workout
+        2.2.2. If user was in workout, admin confirms with button function, wich also acts as WorkOutDone function, and also takes 1 point
+                from users left subscription.
+    2.3. Ability to delete workout
+
+
+USER:
+
+1. Need to add field of subscription
+2. Need to fix name which would be added by user in registration field
+
+
+ADMIN:
+
+1. Ability to singn new admins(??moderators??)
+
+
+??MODERATOR??:
+
+1. Can use all features in workout list
+2. Cant see or manage other users
+    2.1. Manage view, where new admins would bee asigned
+    2.2. Mamage users data
+        2.2.1. Subscription
+
+
+REGISTRATION FORM:
+
+1. Nedd to be field where user would enter his/hers name
+    1.1. Need message that tells for user to user his/hers real name, that workout coutch would know who is going to attend workout
+
+

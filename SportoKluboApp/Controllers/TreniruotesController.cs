@@ -1,35 +1,42 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SportoKluboApp.Data;
 using SportoKluboApp.Models;
 using SportoKluboApp.Models.ViewModels;
 using SportoKluboApp.Services;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SportoKluboApp.Controllers
 {
     public class TreniruotesController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly ITreniruotesService _treniruotesService;
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IWorkoutService _workoutService;
+        private readonly IAdminService _adminService;
+        private readonly IUserService _userService;
 
-        public TreniruotesController(UserManager<IdentityUser> userManager, ITreniruotesService treniruotesService)
+        public TreniruotesController(UserManager<ApplicationUser> userManager,
+            IWorkoutService treniruotesService,
+            IAdminService adminService,
+            IUserService userService,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
-            _treniruotesService = treniruotesService;
+            _workoutService = treniruotesService;
+            _adminService = adminService;
+            _userService = userService;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var currentUser = await _userManager.GetUserAsync(User);
-
-            if (currentUser == null)
-            {
-                return Challenge();
-            }
-
-            var treniruotes = await _treniruotesService
+            var treniruotes = await _workoutService
             .GetTreniruotesAsync();
 
             var model = new TreniruotesViewModel()
@@ -56,7 +63,7 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var succsessful = await _treniruotesService.AddTreniruoteAsync(newTreniruote);
+            var succsessful = await _adminService.AddWorkoutAsync(newTreniruote);
 
             if (!succsessful)
             {
@@ -81,8 +88,8 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var successful = await _treniruotesService
-                .JoinTreniruoteAsync(id, currentUser);
+            var successful = await _userService
+                .JoinWorkoutAsync(id, currentUser);
 
             if (!successful)
             {
@@ -107,8 +114,8 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var successful = await _treniruotesService
-                .ExitTreniruoteAsync(id, currentUser);
+            var successful = await _userService
+                .ExitWorkoutAsync(id, currentUser);
 
             if (!successful)
             {
@@ -116,6 +123,66 @@ namespace SportoKluboApp.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> WorkoutUsers(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return Challenge();
+            }
+
+            var userList =  _context.workoutUsers
+                .Where(x => x.TreniruoteId == id)
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Treniruote);
+
+            return View(userList);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> WorkoutIsDone(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return Challenge();
+            }
+
+            var userList = await _adminService.WorkoutIsDoneAsync(id);
+
+            return RedirectToAction("Index");
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MinusSubscription(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var successful = await _adminService.MinusSubscriptionAsync(id);
+
+
+            return View("WorkoutUsers");
         }
     }
 }
