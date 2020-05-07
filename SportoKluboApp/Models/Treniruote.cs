@@ -12,7 +12,7 @@ namespace SportoKluboApp.Models
         [Required]
         [Column(TypeName = "DateTime")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM-dd-yyyy HH:mm}")]
-        //[DataType(DataType.DateTime)]
+        [DataType(DataType.DateTime)]
         public DateTime? Laikas { get; set; }
 
         [Required]

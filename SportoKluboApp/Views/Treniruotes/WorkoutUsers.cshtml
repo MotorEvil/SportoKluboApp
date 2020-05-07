@@ -1,26 +1,43 @@
 ﻿@model IEnumerable<SportoKluboApp.Models.WorkoutUser>
 
-<table class="table">
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-            </td>
-            <td>@item.ApplicationUser.Subscription</td>
-            <td>
-                @if (item.Attended == false)
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td><h5>Vardas</h5></td>
+                    <td><h5>Prenumeratos likutis</h5></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
                 {
-                    <form asp-controller="Treniruotes" asp-action="MinusSubscription" method="post">
-                        <input id="was" type="submit" value="Dalyvavo" />
-                        <input type="hidden" name="id" value="@item.ApplicationUser.Id">
-                        <input type="hidden" value="@item.TreniruoteId" name="wid" />
-                    </form>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                        </td>
+                        <td>@item.ApplicationUser.Subscription</td>
+                        <td>
+                            @if (item.Attended == false)
+                            {
+                                <form asp-controller="Treniruotes" asp-action="MinusSubscription" method="post">
+                                    <input id="was" type="submit" value="Dalyvavo" class="btn btn-success btn-sm" />
+                                    <input type="hidden" name="id" value="@item.ApplicationUser.Id">
+                                    <input type="hidden" value="@item.TreniruoteId" name="wid" />
+                                </form>
 
+                            }
+                        </td>
+                    </tr>
                 }
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </tbody>
+        </table>
 
+    </div>
+
+    <style>
+        th, td{
+            border-bottom:1px solid #ddd;
+            text-align:center;
+        }
+    </style>

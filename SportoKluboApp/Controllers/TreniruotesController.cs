@@ -7,7 +7,6 @@ using SportoKluboApp.Models;
 using SportoKluboApp.Models.ViewModels;
 using SportoKluboApp.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -141,7 +140,7 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var userList =  _context.workoutUsers
+            var userList = _context.workoutUsers
                 .Where(x => x.TreniruoteId == id)
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Treniruote);
