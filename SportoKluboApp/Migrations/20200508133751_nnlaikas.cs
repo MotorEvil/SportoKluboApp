@@ -1,16 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SportoKluboApp.Migrations
 {
-    public partial class laikas2 : Migration
+    public partial class nnlaikas : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterColumn<DateTime>(
                 name: "Laikas",
                 table: "Items",
-                type: "Date",
                 nullable: false,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
@@ -23,8 +22,7 @@ namespace SportoKluboApp.Migrations
                 table: "Items",
                 type: "nvarchar(max)",
                 nullable: false,
-                oldClrType: typeof(DateTime),
-                oldType: "Date");
+                oldClrType: typeof(DateTime));
         }
     }
 }

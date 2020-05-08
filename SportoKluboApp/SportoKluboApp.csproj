@@ -24,11 +24,17 @@
     <Compile Remove="Data\Migrations\20200506081026_laikas.Designer.cs" />
     <Compile Remove="Data\Migrations\20200506085303_laikasup.cs" />
     <Compile Remove="Data\Migrations\20200506085303_laikasup.Designer.cs" />
+    <Compile Remove="Migrations\20200508133652_nlaikas.cs" />
+    <Compile Remove="Migrations\20200508133652_nlaikas.Designer.cs" />
+    <Compile Remove="Migrations\20200508143731_lllasikas.cs" />
+    <Compile Remove="Migrations\20200508143731_lllasikas.Designer.cs" />
   </ItemGroup>
 
 
   <ItemGroup>
-    <PackageReference Include="Humanizer" Version="2.7.9" />
+    <PackageReference Include="Humanizer" Version="2.8.11" />
+    <PackageReference Include="jQuery" Version="3.5.1" />
+    <PackageReference Include="jQuery.UI" Version="1.12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.2" />

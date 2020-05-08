@@ -10,8 +10,8 @@ using SportoKluboApp.Data;
 namespace SportoKluboApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200506082924_laikas1")]
-    partial class laikas1
+    [Migration("20200508133751_nnlaikas")]
+    partial class nnlaikas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -252,9 +252,9 @@ namespace SportoKluboApp.Migrations
                     b.Property<bool>("IsDone")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Laikas")
+                    b.Property<DateTime?>("Laikas")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("LaisvosVietos")
                         .HasColumnType("int");

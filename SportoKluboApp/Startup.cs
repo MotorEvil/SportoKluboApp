@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using SportoKluboApp.Data;
 using SportoKluboApp.Models;
 using SportoKluboApp.Services;
+using System.Threading;
 
 namespace SportoKluboApp
 {
@@ -67,6 +68,8 @@ namespace SportoKluboApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("lt-LT");
         }
     }
 }

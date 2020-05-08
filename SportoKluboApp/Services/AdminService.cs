@@ -74,5 +74,6 @@ namespace SportoKluboApp.Services
 
             return saveResult;
         }
+
     }
 }

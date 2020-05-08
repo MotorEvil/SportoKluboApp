@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Identity
 @using SportoKluboApp.Models
 @using SportoKluboApp.Data;
+@using Humanizer;
 
 @inject SignInManager<ApplicationUser> signInManager
 @inject UserManager<ApplicationUser> userManager
@@ -20,7 +21,7 @@
         {
 
             <tr>
-                <td id="laikoTR">@item.Laikas.ToString()</td>
+                <td id="laikoTR">@item.Laikas.ToString(" HH:mm dd-MM-yyyy")</td>
             </tr>
             <tr id="bb">
                 <td>@item.Pavadinimas</td>
