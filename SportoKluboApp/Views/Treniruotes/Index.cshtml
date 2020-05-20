@@ -74,7 +74,7 @@
                             @if (item.IsDone == false)
                             {
                                 <form asp-controller="Treniruotes" asp-action="WorkoutIsDone" method="post">
-                                    <input id="IsDone" type="submit" value="Done" class="btn btn-danger btn-sm"/>
+                                    <input id="IsDone" type="submit" value="Done" class="btn btn-danger btn-sm" />
                                     <input type="hidden" name="id" value="@item.Id">
                                 </form>
                             }
@@ -94,8 +94,8 @@
         }
     </table>
 
-    <div class="panel-footer add-item-form">
-        @await Html.PartialAsync("AddTreniruotePartial", new Treniruote())
+    <div class="panel-footer">
+        @await Html.PartialAsync("AddTreniruote", new Treniruote())
     </div>
 </div>
 

@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using SportoKluboApp.Models.AccountViewModels;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SportoKluboApp.Models;
+using SportoKluboApp.Models.AccountViewModels;
+using System;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace SportoKluboApp.Controllers
 {
@@ -59,7 +57,7 @@ namespace SportoKluboApp.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
@@ -224,10 +222,10 @@ namespace SportoKluboApp.Controllers
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-/*                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
-                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
-*/
+                    /*                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                                        var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                                        await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+                    */
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
@@ -427,7 +425,6 @@ namespace SportoKluboApp.Controllers
         {
             return View();
         }
-
 
         [HttpGet]
         public IActionResult AccessDenied()

@@ -5,6 +5,10 @@
 @inject SignInManager<ApplicationUser> signInManager
 @inject UserManager<ApplicationUser> userManager
 
+@{
+    ViewData["Title"] = "AddTreniruote";
+}
+
 @if (signInManager.IsSignedIn(User))
 {
     var currentUser = await userManager.GetUserAsync(User);
@@ -16,7 +20,7 @@
 
     if (isAdmin)
     {
-        <button class="btn btn-primary" data-target="#loginModal" data-toggle="modal" id="add">Kurti treniruote</button>
+        <button class="btn btn-secondary" data-target="#loginModal" data-toggle="modal" id="add">Kurti treniruote</button>
         <div class="modal fade" tabindex="-1" id="loginModal" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -29,16 +33,14 @@
                             <div class="form-group">
                                 <label asp-for="Pavadinimas">Pavadinimas:</label>
                                 <input asp-for="Pavadinimas" class="form-control" placeholder="Pavadinimas" type="text" />
-                                <span asp-validation-for="Pavadinimas" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Laikas">Laikas:</label>
-                                @Html.EditorFor(e=>e.Laikas)
+                                @Html.EditorFor(e => e.Laikas)
                             </div>
                             <div class="form-group">
-                                <label asp-for="LaisvosVietos">LaisvosVietos:</label>
-                                <input asp-for="LaisvosVietos" class="form-control"/>
-                                <time></time>
+                                <label asp-for="LaisvosVietos">Laisvos vietos:</label>
+                                <input asp-for="LaisvosVietos" class="form-control" />
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Patvirtinti</button>
@@ -46,10 +48,8 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
     }
 }
-

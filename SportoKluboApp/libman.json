@@ -3,10 +3,6 @@
   "defaultProvider": "cdnjs",
   "libraries": [
     {
-      "library": "jquery@3.5.1",
-      "destination": "wwwroot/lib/jquery/"
-    },
-    {
       "library": "jquery-datetimepicker@2.5.20",
       "destination": "wwwroot/lib/jquery-datetimepicker/"
     },
@@ -17,10 +13,6 @@
         "moment.min.js",
         "moment.js"
       ]
-    },
-    {
-      "library": "twitter-bootstrap@4.4.0",
-      "destination": "wwwroot/lib/twitter-bootstrap/"
     }
   ]
 }

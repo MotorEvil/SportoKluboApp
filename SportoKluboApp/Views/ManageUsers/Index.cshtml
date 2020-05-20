@@ -18,7 +18,7 @@
     @foreach (var user in Model.Administrators)
     {
         <tr>
-            <td>@user.Email</td>
+            <td>@user.UserName</td>
         </tr>
     }
 </table>
@@ -37,7 +37,7 @@
     {
 
         <tr>
-            <td>@user.Email</td>
+            <td>@user.UserName</td>
             <td>
                 <form asp-action="AddSubscription" method="post">
                     <input id="sub" asp-for="@user.Subscription" name="sub" />

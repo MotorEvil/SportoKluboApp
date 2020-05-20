@@ -46,9 +46,10 @@ namespace SportoKluboApp.Controllers
             return View(model);
         }
 
+        [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddTreniruote(Treniruote newTreniruote)
+        public async Task<IActionResult> AddTreniruote(Treniruote model)
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +63,7 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var succsessful = await _adminService.AddWorkoutAsync(newTreniruote);
+            var succsessful = await _adminService.AddWorkoutAsync(model);
 
             if (!succsessful)
             {

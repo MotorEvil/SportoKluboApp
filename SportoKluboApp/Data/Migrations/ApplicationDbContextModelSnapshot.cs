@@ -250,17 +250,16 @@ namespace SportoKluboApp.Migrations
                     b.Property<bool>("IsDone")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("Laikas")
-                        .IsRequired()
+                    b.Property<DateTime>("Laikas")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LaisvosVietos")
+                    b.Property<int?>("LaisvosVietos")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Pavadinimas")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Registracijos")
                         .HasColumnType("int");
