@@ -61,7 +61,6 @@ namespace SportoKluboApp.Services
             return saveResult == 1;
         }
 
-        //In Development
         public async Task<IdentityResult> MinusSubscriptionAsync(Guid id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());

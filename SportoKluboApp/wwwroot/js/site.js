@@ -10,3 +10,4 @@ function markJoined(button) {
     var form = button.closest('form');
     form.submit();
 }
+

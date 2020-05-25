@@ -10,8 +10,8 @@ using SportoKluboApp.Data;
 namespace SportoKluboApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200414143243_NewInitial")]
-    partial class NewInitial
+    [Migration("20200508133751_nnlaikas")]
+    partial class nnlaikas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -197,6 +197,9 @@ namespace SportoKluboApp.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Subscription")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -275,6 +278,24 @@ namespace SportoKluboApp.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("SportoKluboApp.Models.WorkoutUser", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<Guid>("TreniruoteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Attended")
+                        .HasColumnType("bit");
+
+                    b.HasKey("UserId", "TreniruoteId");
+
+                    b.HasIndex("TreniruoteId");
+
+                    b.ToTable("workoutUsers");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -321,6 +342,21 @@ namespace SportoKluboApp.Migrations
                 {
                     b.HasOne("SportoKluboApp.Models.ApplicationUser", null)
                         .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SportoKluboApp.Models.WorkoutUser", b =>
+                {
+                    b.HasOne("SportoKluboApp.Models.Treniruote", "Treniruote")
+                        .WithMany("WorkoutUsers")
+                        .HasForeignKey("TreniruoteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SportoKluboApp.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("WorkoutUsers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

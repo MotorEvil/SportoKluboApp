@@ -31,13 +31,13 @@ namespace SportoKluboApp
         private static async Task EnsureTestAdminAsync(UserManager<ApplicationUser> userManager)
         {
             var testAdmin = await userManager.Users
-                .Where(x => x.UserName == "admin@todo.local")
+                .Where(x => x.UserName == "Adminas")
                 .SingleOrDefaultAsync();
 
             if (testAdmin != null) return;
 
-            testAdmin = new ApplicationUser { UserName = "admin@todo.local", Email = "admin@todo.local" };
-            await userManager.CreateAsync(testAdmin, "NotSecure123!!");
+            testAdmin = new ApplicationUser { UserName = "Adminas", Email = "adminas@app.local" };
+            await userManager.CreateAsync(testAdmin, "Testing123!");
             await userManager.AddToRoleAsync(testAdmin, Constants.AdministratorRole);
         }
     }

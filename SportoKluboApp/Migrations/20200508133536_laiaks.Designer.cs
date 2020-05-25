@@ -10,8 +10,8 @@ using SportoKluboApp.Data;
 namespace SportoKluboApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200423123539_WorkoutUser")]
-    partial class WorkoutUser
+    [Migration("20200508133536_laiaks")]
+    partial class laiaks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -252,9 +252,9 @@ namespace SportoKluboApp.Migrations
                     b.Property<bool>("IsDone")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime?>("Laikas")
+                    b.Property<string>("Laikas")
                         .IsRequired()
-                        .HasColumnType("datetime2");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LaisvosVietos")
                         .HasColumnType("int");
@@ -286,11 +286,14 @@ namespace SportoKluboApp.Migrations
                     b.Property<Guid>("TreniruoteId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<bool>("Attended")
+                        .HasColumnType("bit");
+
                     b.HasKey("UserId", "TreniruoteId");
 
                     b.HasIndex("TreniruoteId");
 
-                    b.ToTable("WorkoutUser");
+                    b.ToTable("workoutUsers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -7,7 +7,6 @@ using SportoKluboApp.Models;
 using SportoKluboApp.Models.ViewModels;
 using SportoKluboApp.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -47,9 +46,10 @@ namespace SportoKluboApp.Controllers
             return View(model);
         }
 
+        [HttpPost]
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddTreniruote(Treniruote newTreniruote)
+        public async Task<IActionResult> AddTreniruote(Treniruote model)
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var succsessful = await _adminService.AddWorkoutAsync(newTreniruote);
+            var succsessful = await _adminService.AddWorkoutAsync(model);
 
             if (!succsessful)
             {
@@ -126,7 +126,7 @@ namespace SportoKluboApp.Controllers
         }
 
         [Authorize(Roles = "Administrator")]
-        [ValidateAntiForgeryToken]
+        [HttpGet]
         public async Task<IActionResult> WorkoutUsers(Guid id)
         {
             if (id == Guid.Empty)
@@ -141,7 +141,7 @@ namespace SportoKluboApp.Controllers
                 return Challenge();
             }
 
-            var userList =  _context.workoutUsers
+            var userList = _context.workoutUsers
                 .Where(x => x.TreniruoteId == id)
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Treniruote);
@@ -172,7 +172,7 @@ namespace SportoKluboApp.Controllers
 
         [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> MinusSubscription(Guid id)
+        public async Task<IActionResult> MinusSubscription(Guid id, string wid)
         {
             if (id == Guid.Empty)
             {
@@ -181,8 +181,13 @@ namespace SportoKluboApp.Controllers
 
             var successful = await _adminService.MinusSubscriptionAsync(id);
 
+            var attendand = _context.workoutUsers.Where(x => x.UserId == id.ToString() && x.TreniruoteId.ToString() == wid).FirstOrDefault();
 
-            return View("WorkoutUsers");
+            attendand.Attended = true;
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("WorkoutUsers", new { id = wid });
         }
     }
 }

@@ -9,5 +9,7 @@ namespace SportoKluboApp.Models
 
         public Guid TreniruoteId { get; set; }
         public Treniruote Treniruote { get; set; }
+
+        public bool Attended { get; set; }
     }
 }

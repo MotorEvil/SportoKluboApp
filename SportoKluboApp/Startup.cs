@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using SportoKluboApp.Data;
 using SportoKluboApp.Models;
 using SportoKluboApp.Services;
+using System.Threading;
 
 namespace SportoKluboApp
 {
@@ -35,6 +36,7 @@ namespace SportoKluboApp
             services.AddScoped<IWorkoutService, WorkoutService>();
             services.AddScoped<IAdminService, AdminService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IEmailSender, EmailSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +56,7 @@ namespace SportoKluboApp
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseRequestLocalization();
             app.UseRouting();
 
             app.UseAuthentication();
@@ -67,6 +69,8 @@ namespace SportoKluboApp
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("lt-LT");
         }
     }
 }
