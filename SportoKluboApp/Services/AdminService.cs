@@ -19,6 +19,11 @@ namespace SportoKluboApp.Services
             _context = context;
         }
 
+        public AdminService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<bool> AddWorkoutAsync(Treniruote newTreniruote)
         {
             newTreniruote.Id = Guid.NewGuid();
