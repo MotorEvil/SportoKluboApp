@@ -19,6 +19,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{4ED52701-092
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SportoKluboAPI", "SportoKluboAPI\SportoKluboAPI.csproj", "{1CE8B6A0-C1AD-44A6-8D78-856D3C68860B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C071FC51-B628-424D-BE12-B5E25C2B3F76}"
+	ProjectSection(SolutionItems) = preProject
+		.deployment = .deployment
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
