@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SportoKluboApp.Data;
+using SportoKluboApp.Services;
 
 namespace SportoKluboApp.Controllers.API
 {
@@ -12,10 +13,12 @@ namespace SportoKluboApp.Controllers.API
     public class WorkoutAPIController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWorkoutService _workoutService;
 
-        public WorkoutAPIController(ApplicationDbContext context)
+        public WorkoutAPIController(IWorkoutService treniruotesService, ApplicationDbContext context)
         {
             _context = context;
+            _workoutService = treniruotesService;
         }
 
 
@@ -23,7 +26,7 @@ namespace SportoKluboApp.Controllers.API
         [HttpGet]
         public IActionResult GetWorkouts()
         {
-            return Ok(_context.Items);
+            return Ok(_context.Items.OrderBy(x => x.Laikas));
         }
 
         // GET api/<WorkoutAPIController>/5
