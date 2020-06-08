@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="MobileApp.View.Workouts"
+             xmlns:viewModels="clr-namespace:MobileApp.ModelView">
+    <ContentPage.BindingContext>
+        <viewModels:WorkoutViewModel />
+    </ContentPage.BindingContext>
+
+    <ListView  HasUnevenRows="True"
+              ItemsSource="{Binding Workouts}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout>
+                        <Label Text="{Binding Id}"></Label>
+                        <Label Text="{Binding IsDone}"></Label>
+                        <Label Text="{Binding Pavadinimas}"></Label>
+                        <Label Text="{Binding Laikas}"></Label>
+                        <Label Text="{Binding LaisvosVietos}"></Label>
+                        <Label Text="{Binding Registracijos}"></Label>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+
+
+</ContentPage>
