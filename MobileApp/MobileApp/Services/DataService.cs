@@ -11,7 +11,7 @@ namespace MobileApp.Services
 {
     public class DataService
     {
-        private string Url = "https://localhost:44371/api/Workout";
+        private string Url = "https://zgrabauskasportfolio.azurewebsites.net/api/workoutapi/";
         public async Task<List<Treniruote>> GetTreniruotes()
         {
             var httpClient = new HttpClient();

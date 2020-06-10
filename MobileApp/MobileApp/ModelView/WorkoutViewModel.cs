@@ -27,7 +27,7 @@ namespace MobileApp.ModelView
 
         public WorkoutViewModel()
         {
-            Getworkout();
+            _ = Getworkout();
         }
 
         private async Task Getworkout()

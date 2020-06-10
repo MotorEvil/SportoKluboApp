@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "DfaultConnection"
+    },
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "SportoKluboApp"
+    },
+    "mssql3": {
+      "type": "mssql",
+      "connectionId": "DefaultConnection"
+    }
+  }
+}
